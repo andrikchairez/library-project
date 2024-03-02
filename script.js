@@ -1,18 +1,58 @@
 const myLibrary = [];
 
-const newBook = new Book("Harry Potter", "JK Rowling", "Jan 01, 2001", "600", "false");
+// const newBook = new Book("Harry Potter", "JK Rowling", "Jan 01, 2001", "600", "false"); 
 
 function Book(title, author, publishDate, pages, hasRead) {
     this.title = title;
     this.author = author;
-    this.publishDate = publishDate;
-    this.pages = pages;1
+    this.pages = pages;
     this.hasRead = hasRead;
 }
 
-function addBookToLibrary() {
-    //code here
+function addBookToLibrary(book) {
+    myLibrary.push(book)
 }
+
+const openButton = document.querySelector("[data-open-modal");
+const closeButton = document.querySelector("[data-close-modal");
+const modal = document.querySelector("[data-modal");
+
+openButton.addEventListener('click', () => {
+    modal.showModal()
+})
+
+closeButton.addEventListener('click', () => {
+    modal.close()
+})
+
+const addBookButton = document.querySelector(".primaryButton");
+
+addBookButton.addEventListener('click', () => {
+    modal.showModal()
+})
+
+const form = document.querySelector("form");
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const pages = document.getElementById('pages').value;
+    const readBookValue = document.querySelector('input[name="readBook"]:checked').value;
+    const hasReadBook = readBookValue === "Yes!";
+    const newBook = new Book(title, author, pages, hasReadBook);
+
+    addBookToLibrary(newBook);
+
+    createCard(newBook);
+
+    form.reset();
+
+    modal.close();
+
+
+})
 
 const grid = document.querySelector(".gridContainer");
 
@@ -98,4 +138,33 @@ function createCard(newBook) {
     
 }
 
-createCard(newBook);
+
+/* <form>
+            <label for="author">
+                Author
+                <input type="text" id="author">
+            </label>
+            
+            <label for="title">
+                Title
+                <input type="text" id="title">
+            </label>
+            
+            <label for="pages">
+                How many pages in your book?
+                <input type="number" id="pages">
+            </label>
+
+            <h4>Have you read this book?</h4>
+            <label for="yes">
+                Yes!
+                <input name="readBook" value="Yes!" type="radio" id="yes">
+            </label>
+
+            <label for="no">
+                No!
+                <input name="readBook" value="Not yet!" type="radio" id="no">
+            </label>
+        </form>
+        <button data-close-modal>Cancel</button>
+        <button type="submit" value="Submit">Add</button> */

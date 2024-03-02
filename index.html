@@ -7,8 +7,43 @@
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
 </head>
+
 <body>
+    <dialog data-modal>
+        <form>
+            <label for="author">
+                Author
+                <input type="text" id="author">
+            </label>
+            
+            <label for="title">
+                Title
+                <input type="text" id="title">
+            </label>
+            
+            <label for="pages">
+                How many pages in your book?
+                <input type="number" id="pages">
+            </label>
+
+            <h4>Have you read this book?</h4>
+            <label for="yes">
+                Yes!
+                <input name="readBook" value="Yes!" type="radio" id="yes">
+            </label>
+
+            <label for="no">
+                No!
+                <input name="readBook" value="Not yet!" type="radio" id="no">
+            </label>
+            <button data-close-modal type="button">Cancel</button>
+            <button data-close-modal type="submit" value="Submit">Add</button>
+        </form>
+        
+    </dialog>
+
     <div class="headerRow">
 
         <h1>My Library</h1>
@@ -20,7 +55,7 @@
             <div class="sideBarCtaCol">
                 <h4>Welcome back to your safe space!</h4>
                 <p>Want to add another title to your list?</p>
-                <button type="button" class="primaryButton">Add book</button>
+                <button data-open-modal type="button" class="primaryButton">Add book</button>
             </div>
         
         </div>
