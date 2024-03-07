@@ -132,6 +132,10 @@ body {
     color:var(--support);
 }
 
+.material-symbols-outlined:hover {
+    cursor:pointer;
+}
+
 label[for^="hasRead"] {
     display:flex;
     gap:8px;

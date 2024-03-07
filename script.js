@@ -1,8 +1,6 @@
 const myLibrary = [];
 
-// const newBook = new Book("Harry Potter", "JK Rowling", "Jan 01, 2001", "600", "false"); 
-
-function Book(title, author, publishDate, pages, hasRead) {
+function Book(title, author, pages, hasRead) {
     this.title = title;
     this.author = author;
     this.pages = pages;
@@ -39,10 +37,9 @@ form.addEventListener('submit', function(event) {
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
     const pages = document.getElementById('pages').value;
-    const readBookValue = document.querySelector('input[name="readBook"]:checked').value;
-    const hasReadBook = readBookValue === "Yes!";
+    const hasReadBook = document.getElementById('hasReadBook');
     const newBook = new Book(title, author, pages, hasReadBook);
-
+    
     addBookToLibrary(newBook);
 
     createCard(newBook);
@@ -50,8 +47,6 @@ form.addEventListener('submit', function(event) {
     form.reset();
 
     modal.close();
-
-
 })
 
 const grid = document.querySelector(".gridContainer");
@@ -59,7 +54,7 @@ const grid = document.querySelector(".gridContainer");
 function createCard(newBook) {
     const card = document.createElement("div");
     card.classList.add('card');
-
+    
     //Will set the content of the 'card' component first
     //Top row of the UI.
     const rowContainerTop = document.createElement("div");
@@ -78,17 +73,6 @@ function createCard(newBook) {
     topRowH4.textContent = newBook.title;
     topRowPara.textContent = newBook.author;
 
-    //Middle part of the UI
-    const publishDate = document.createElement("div");
-    publishDate.classList.add('textCol')
-
-    const middleRowSupportPara = document.createElement("p");
-    middleRowSupportPara.classList.add('supportText');
-    const middleRowPara = document.createElement("p");
-
-    middleRowSupportPara.textContent = "Published"
-    middleRowPara.textContent = newBook.publishDate;
-    
     //Final row part of the UI
     const rowContainerBottom = document.createElement("div");
     rowContainerBottom.classList.add('rowContainer');
@@ -99,7 +83,10 @@ function createCard(newBook) {
     const bottomRowSupportPara = document.createElement("p");
     bottomRowSupportPara.classList.add('supportText');
     const bottomRowPara = document.createElement("p");
-
+    
+    bottomRowSupportPara.textContent = "Pages";
+    bottomRowPara.textContent = newBook.pages;
+    
     const uniqueId = `hasRead-${newBook.title.replace(/\s+/g, '-').toLowerCase()}`;
 
     const hasReadLabel = document.createElement("label");
@@ -108,10 +95,7 @@ function createCard(newBook) {
     const hasReadCheckbox = document.createElement("input");
     hasReadCheckbox.setAttribute("type", "checkbox");
     hasReadCheckbox.setAttribute("id", uniqueId);
-
-    bottomRowSupportPara.textContent = "Pages";
-    bottomRowPara.textContent = newBook.pages;
-    
+    hasReadCheckbox.checked = newBook.hasRead.checked;
 
     //Assembles the card component together to correctly nest it
     //and properly append it to a grid container
@@ -120,10 +104,9 @@ function createCard(newBook) {
     topRowTextCol.append(topRowH4, topRowPara);
     rowContainerTop.append(topRowTextCol, topRowSpan);
     card.append(rowContainerTop);
-
-    //Assemble that middle row
-    publishDate.append(middleRowSupportPara, middleRowPara);
-    card.appendChild(publishDate);
+    topRowSpan.addEventListener("click", function() {
+        this.parentElement.parentElement.remove();
+    });
 
     //Assemble last row
     bottomRowTextCol.append(bottomRowSupportPara, bottomRowPara);
@@ -137,34 +120,3 @@ function createCard(newBook) {
     grid.appendChild(card);
     
 }
-
-
-/* <form>
-            <label for="author">
-                Author
-                <input type="text" id="author">
-            </label>
-            
-            <label for="title">
-                Title
-                <input type="text" id="title">
-            </label>
-            
-            <label for="pages">
-                How many pages in your book?
-                <input type="number" id="pages">
-            </label>
-
-            <h4>Have you read this book?</h4>
-            <label for="yes">
-                Yes!
-                <input name="readBook" value="Yes!" type="radio" id="yes">
-            </label>
-
-            <label for="no">
-                No!
-                <input name="readBook" value="Not yet!" type="radio" id="no">
-            </label>
-        </form>
-        <button data-close-modal>Cancel</button>
-        <button type="submit" value="Submit">Add</button> */
